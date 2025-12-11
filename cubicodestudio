@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUBICODE | Tasarım & Üretim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- AYARLAR --- */
+        :root {
+            --bg-color: #f4f4f4;
+            --text-color: #111111;
+            --accent-color: #ff3b00; /* Endüstriyel Turuncu */
+            --border-color: #d0d0d0;
+            --font-head: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; padding: 0; margin: 0; }
+
+        /* --- NAV --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 50px; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(244, 244, 244, 0.9); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .brand { font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
+        .brand-dot { width: 10px; height: 10px; background-color: var(--accent-color); border-radius: 50%; }
+        
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: var(--text-color); transition: 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- HERO --- */
+        .hero {
+            height: 90vh; display: flex; flex-direction: column; justify-content: center;
+            padding: 0 50px; position: relative; border-bottom: 1px solid var(--border-color); margin-top: 60px;
+        }
+        .hero h1 { font-family: var(--font-head); font-size: 8vw; line-height: 0.9; margin: 0; letter-spacing: -3px; text-transform: uppercase; }
+        .hero h1 span { color: var(--accent-color); }
+        .hero-sub { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px; flex-wrap: wrap; gap: 30px; }
+        .hero-desc { max-width: 500px; font-size: 1.2rem; color: #555; }
+        .scroll-indicator { font-family: var(--font-head); text-transform: uppercase; font-size: 0.8rem; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(10px);} 60% {transform: translateY(5px);} }
+
+        /* --- MARQUEE --- */
+        .marquee-container { overflow: hidden; white-space: nowrap; background: var(--text-color); color: var(--bg-color); padding: 20px 0; }
+        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
+        .marquee-item { font-family: var(--font-head); font-size: 1.5rem; text-transform: uppercase; margin: 0 40px; font-weight: 700; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- SERVICES --- */
+        .services { padding: 100px 50px; }
+        .section-label { font-family: var(--font-head); font-size: 0.9rem; text-transform: uppercase; color: var(--accent-color); margin-bottom: 50px; display: block; font-weight: 700; }
+        .service-item { border-top: 1px solid var(--border-color); padding: 60px 0; display: flex; justify-content: space-between; align-items: flex-start; transition: 0.4s; cursor: pointer; position: relative; }
+        .service-item:last-child { border-bottom: 1px solid var(--border-color); }
+        .service-item:hover { padding-left: 30px; background-color: #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .service-title { font-family: var(--font-head); font-size: 3rem; margin: 0; font-weight: 600; }
+        .service-title span { font-size: 1rem; vertical-align: top; margin-right: 15px; color: var(--accent-color); }
+        .service-desc { max-width: 400px; color: #666; font-size: 1.1rem; }
+        .arrow-icon { font-size: 2rem; opacity: 0; transform: translateX(-20px); transition: 0.4s; color: var(--accent-color); }
+        .service-item:hover .arrow-icon { opacity: 1; transform: translateX(0); }
+
+        /* --- ABOUT & SIGNATURE --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; height: auto; min-height: 80vh; }
+        .about-visual { background-color: #e5e5e5; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 400px; }
+        .geo-shape { width: 300px; height: 300px; border: 2px solid #111; position: absolute; animation: rotateShape 20s infinite linear; }
+        .geo-shape::before { content: ''; position: absolute; top: 20px; left: 20px; width: 100%; height: 100%; border: 2px solid var(--accent-color); }
+        @keyframes rotateShape { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
+
+        .about-content { padding: 80px; display: flex; flex-direction: column; justify-content: center; background-color: #fff; }
+        .about-content h2 { font-family: var(--font-head); font-size: 2.5rem; margin-bottom: 30px; line-height: 1.1; }
+        
+        /* YENİ İSİM ALANI TASARIMI (Blueprint Stamp) */
+        .founder-signature {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #111;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 5px;
+            width: fit-content;
+        }
+        
+        .signature-role {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+        }
+
+        .signature-name {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #111;
+            text-transform: uppercase;
+        }
+
+        /* --- FOOTER --- */
+        footer { background-color: var(--text-color); color: #fff; padding: 80px 50px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+        .footer-logo { font-family: var(--font-head); font-size: 2rem; font-weight: 700; margin-bottom: 20px; display: block; }
+        .footer-col h4 { color: #888; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 20px; }
+        .footer-col ul li { margin-bottom: 15px; }
+        .footer-col ul li a:hover { color: var(--accent-color); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 15vw; }
+            .service-item { flex-direction: column; gap: 20px; }
+            .about-grid { grid-template-columns: 1fr; }
+            nav { padding: 20px; }
+            .nav-links { display: none; }
+            footer { padding: 50px 20px; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand">
+            <span class="brand-dot"></span> CUBICODE
+        </div>
+        <div class="nav-links">
+            <a href="#work">Çalışmalar</a>
+            <a href="#about">Stüdyo</a>
+            <a href="#contact">İletişim</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div>
+            <h1>Geleceği<br>İnşa <span>Ediyoruz.</span></h1>
+        </div>
+        <div class="hero-sub">
+            <div class="hero-desc">
+                CubiCode, kodun mantığını maddenin formuyla birleştiren Gaziantep merkezli multidisipliner tasarım ve üretim stüdyosudur.
+            </div>
+            <div class="scroll-indicator">
+                Aşağı Kaydır <i class="fas fa-arrow-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span class="marquee-item">3D BASKI TEKNOLOJİLERİ</span>
+            <span class="marquee-item">///</span>
+            <span class="marquee-item">WEB YAZILIM</span>
+            <span class="marquee-item">///</span>
+            <span class="marquee-item">ÜRÜN TASARIMI</span>
+            <span class="marquee-item">///</span>
+            <span class="marquee-item">PROTOTİPLEME</span>
+            <span class="marquee-item">///</span>
+            <span class="marquee-item">UI/UX TASARIM</span>
+        </div>
+    </div>
+
+    <section class="services" id="work">
+        <span class="section-label">Uzmanlık Alanları</span>
+        <div class="service-item">
+            <h2 class="service-title"><span>01</span> 3D Üretim</h2>
+            <p class="service-desc">FDM ve SLA teknolojileri ile endüstriyel kalitede prototipleme. Fikrinizden nihai ürüne giden en kısa yol.</p>
+            <i class="fas fa-arrow-right arrow-icon"></i>
+        </div>
+        <div class="service-item">
+            <h2 class="service-title"><span>02</span> Web Yazılım</h2>
+            <p class="service-desc">Marka kimliğinizi yansıtan, minimalist ve yüksek performanslı dijital deneyimler. Kodun estetik hali.</p>
+            <i class="fas fa-arrow-right arrow-icon"></i>
+        </div>
+        <div class="service-item">
+            <h2 class="service-title"><span>03</span> Tersine Müh.</h2>
+            <p class="service-desc">Var olan objelerin dijital ikizlerini oluşturma. 3D tarama ve parametrik modelleme hizmetleri.</p>
+            <i class="fas fa-arrow-right arrow-icon"></i>
+        </div>
+    </section>
+
+    <section class="about-grid" id="about">
+        <div class="about-visual">
+            <div class="geo-shape"></div>
+        </div>
+        <div class="about-content">
+            <span class="section-label">Stüdyo Hakkında</span>
+            <h2>Geleneksel zanaatı dijital inovasyonla yeniden yorumluyoruz.</h2>
+            <p style="color: #555; font-size: 1.1rem; line-height: 1.6;">
+                CubiCode'da biz sadece kod yazmıyor veya parça basmıyoruz. Biz, karmaşık problemleri estetik ve işlevsel çözümlere dönüştüren bir tasarım eviyiz. Gaziantep'ten dünyaya teknoloji üretiyoruz.
+            </p>
+            
+            <div class="founder-signature">
+                <span class="signature-role">KURUCU & TASARIMCI</span>
+                <span class="signature-name">FURKAN YAVUZ</span>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div style="flex: 1; min-width: 250px;">
+            <span class="footer-logo">CUBICODE.</span>
+            <p style="color: #999; max-width: 300px;">
+                Dijital ve fiziksel dünya arasındaki boşluğu dolduruyoruz.
+            </p>
+        </div>
+        
+        <div class="footer-col">
+            <h4>Adres</h4>
+            <ul>
+                <li>Kuzeyşehir 1. Etap</li>
+                <li>Şehitkamil / Gaziantep</li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>İletişim</h4>
+            <ul>
+                <li><a href="mailto:mailadresiniz@gmail.com">codecubi@gmail.com</a></li>
+                <li><a href="tel:+905461330698">0546 133 06 98</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>Sosyal</h4>
+            <ul>
+                <li><a href="https://instagram.com/furkanraphy" target="_blank">Instagram</a></li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+</html>
